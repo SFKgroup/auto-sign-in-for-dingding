@@ -24,7 +24,7 @@ def find():
         res = cv2.matchTemplate(img, template, method)
         # 函数返回值就是矩阵的最小值，最大值，最小值的索引，最大值的索引。
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-        print(meth,min_val, max_val)
+        #print(meth,min_val, max_val)
         if meth == 'cv2.TM_CCOEFF_NORMED':#越接近1信度越高
             if abs(1-max_val) > 0.1:pass
             elif abs(1-max_val) > 0.5:bel = bel - 1
@@ -78,7 +78,7 @@ while True:
             run = True
             break
     if run:
-        times = 15#最大寻找次数
+        times = 25#最大寻找次数
         for i in range(times):
             x,y=find()
             if x != None:
@@ -88,6 +88,10 @@ while True:
                 break
             else:pyautogui.scroll(800)#向上翻找
             time.sleep(1)
-        for i in range(times+2):pyautogui.scroll(-800)#回滚
+        for i in range(times+2):
+            pyautogui.scroll(-800)#回滚
+            time.sleep(1)
+        print('Done!')
+        run = False
     time.sleep(50)
     t = datetime.now()
